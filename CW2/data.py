@@ -33,7 +33,7 @@ n2 = []
 n3 = []
 n4 = []
 
-secs = 10000
+secs = 1
 
 for x in x_data:
     x_array.append(x)
@@ -48,34 +48,39 @@ for n in neuron1:
     n1.append(n/secs)
 
 for n in neuron2:
-    n2.append(n)
+    n2.append(n/secs)
 
 for n in neuron3:
-    n3.append(n)
+    n3.append(n/secs)
 
 for n in neuron4:
-    n4.append(n)
+    n4.append(n/secs)
 
-#print(len(x_array))
-#print(len(y_array))
-#print(len(t_array))
-#print(len(n1))
-#print(len(n2))
-#print(len(n3))
-#print(len(n4))
+t_max = max(t_array)
+t_min = min(t_array)
+t_range = int(t_max - t_min)
+print(t_max)
+print(t_min)
+print(t_range)
+full_time = []
+t_temp = t_min
 
-n1_time = numpy.zeros(len(t_array))
+for i in range(0, t_range):
+    full_time.append(t_temp)
+    t_temp += 1
+
+n1_time = numpy.zeros(t_range)
 
 for n_index in range(len(n1)):
-    for t_index in range(len(t_array)):
-        if n1[n_index] == t_array[t_index]:
+    for t_index in range(len(full_time)):
+        if n1[n_index] == full_time[t_index]:
             n1_time[t_index] = 1
 
 
 print(len(n1_time))
 
 #plot
-plt.plot(t_array, n1_time)
+plt.plot(full_time, n1_time)
 plt.xlabel("Time")
 plt.ylabel("Neuron 1 Spikes")
 plt.title("Times when Neuron 1 spikes")
