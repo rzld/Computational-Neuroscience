@@ -126,12 +126,51 @@ for t_index in range(len(t_array)):
 
 x_n1 = numpy.zeros(t_range)
 y_n1 = numpy.zeros(t_range)
+x_n2 = numpy.zeros(t_range)
+y_n2 = numpy.zeros(t_range)
+x_n3 = numpy.zeros(t_range)
+y_n3 = numpy.zeros(t_range)
+x_n4 = numpy.zeros(t_range)
+y_n4 = numpy.zeros(t_range)
 
-for n1_index in range(len(n1_time)):
-    if n1_time[n1_index] > 0:
-        x_n1[n1_index] = x_time[n1_index]
-        y_n1[n1_index] = y_time[n1_index]
+for index in range(t_range):
+    if n1_time[index] > 0:
+        x_n1[index] = x_time[index]
+        y_n1[index] = y_time[index]
+    if n2_time[index] > 0:
+        x_n2[index] = x_time[index]
+        y_n2[index] = y_time[index]
+    if n3_time[index] > 0:
+        x_n3[index] = x_time[index]
+        y_n3[index] = y_time[index]
+    if n4_time[index] > 0:
+        x_n4[index] = x_time[index]
+        y_n4[index] = y_time[index]
 
+plt.plot(x_array, y_array)
 plt.plot(x_n1, y_n1, 'ro')
-plt.axis([min(x_array), max(x_array), min(y_array), max(y_array)])
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Positions where Neuron 1 spikes")
+plt.show()
+
+plt.plot(x_array, y_array)
+plt.plot(x_n2, y_n2, 'ro')
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Positions where Neuron 2 spikes")
+plt.show()
+
+plt.plot(x_array, y_array)
+plt.plot(x_n3, y_n3, 'ro')
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Positions where Neuron 3 spikes")
+plt.show()
+
+plt.plot(x_array, y_array)
+plt.plot(x_n4, y_n4, 'ro')
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Positions where Neuron 4 spikes")
 plt.show()
