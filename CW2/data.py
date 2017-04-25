@@ -33,7 +33,7 @@ n2 = []
 n3 = []
 n4 = []
 
-secs = 1
+secs = 10000
 
 for x in x_data:
     x_array.append(x)
@@ -59,29 +59,79 @@ for n in neuron4:
 t_max = max(t_array)
 t_min = min(t_array)
 t_range = int(t_max - t_min)
+t_delta = (t_max - t_min) / t_range
 print(t_max)
 print(t_min)
-print(t_range)
+#print(t_range)
+#print(t_delta)
 full_time = []
 t_temp = t_min
 
 for i in range(0, t_range):
-    full_time.append(t_temp)
+    full_time.append(math.floor(t_temp))
     t_temp += 1
 
 n1_time = numpy.zeros(t_range)
+n2_time = numpy.zeros(t_range)
+n3_time = numpy.zeros(t_range)
+n4_time = numpy.zeros(t_range)
 
-for n_index in range(len(n1)):
-    for t_index in range(len(full_time)):
-        if n1[n_index] == full_time[t_index]:
-            n1_time[t_index] = 1
+for t_index in range(len(full_time)):
+    for n_index in range(len(n1)):
+        if math.floor(n1[n_index]) == full_time[t_index]:
+            n1_time[t_index] += 1
+    for n_index in range(len(n2)):
+        if math.floor(n2[n_index]) == full_time[t_index]:
+            n2_time[t_index] += 1
+    for n_index in range(len(n3)):
+        if math.floor(n3[n_index]) == full_time[t_index]:
+            n3_time[t_index] += 1
+    for n_index in range(len(n4)):
+        if math.floor(n4[n_index]) == full_time[t_index]:
+            n4_time[t_index] += 1
 
-
-print(len(n1_time))
-
-#plot
+#plot: firing rate per second
 plt.plot(full_time, n1_time)
-plt.xlabel("Time")
-plt.ylabel("Neuron 1 Spikes")
-plt.title("Times when Neuron 1 spikes")
+plt.xlabel("Time (s)")
+plt.ylabel("Firing rate (Hz)")
+plt.title("Number of spikes per second - Neuron 1")
+plt.show()
+
+plt.plot(full_time, n2_time)
+plt.xlabel("Time (s)")
+plt.ylabel("Firing rate (Hz)")
+plt.title("Number of spikes per second - Neuron 2")
+plt.show()
+
+plt.plot(full_time, n3_time)
+plt.xlabel("Time (s)")
+plt.ylabel("Firing rate (Hz)")
+plt.title("Number of spikes per second - Neuron 3")
+plt.show()
+
+plt.plot(full_time, n4_time)
+plt.xlabel("Time (s)")
+plt.ylabel("Firing rate (Hz)")
+plt.title("Number of spikes per second - Neuron 4")
+plt.show()
+
+x_time = numpy.zeros(t_range)
+y_time = numpy.zeros(t_range)
+
+for t_index in range(len(t_array)):
+    for t2_index in range(len(full_time)):
+        if math.floor(t_array[t_index]) == full_time[t2_index]:
+            x_time[t2_index] = x_array[t_index]
+            y_time[t2_index] = y_array[t_index]
+
+x_n1 = numpy.zeros(t_range)
+y_n1 = numpy.zeros(t_range)
+
+for n1_index in range(len(n1_time)):
+    if n1_time[n1_index] > 0:
+        x_n1[n1_index] = x_time[n1_index]
+        y_n1[n1_index] = y_time[n1_index]
+
+plt.plot(x_n1, y_n1, 'ro')
+plt.axis([min(x_array), max(x_array), min(y_array), max(y_array)])
 plt.show()
