@@ -3,7 +3,7 @@ import math
 
 # functions
 def dv(v0, ie):
-    return (el - v0 + rm * ie)/tau_m
+    return (v_rest - v0 + rm * ie)/tau_m
 
 # variables
 v_rest = -65                # resting potential
@@ -24,3 +24,26 @@ tau_plus = 20               # in ms
 tau_minus = 20              # in ms
 
 STDP_mode = True            # STDP mode switch
+
+#integrate and fire
+ts = [0]
+v = [v_reset]
+
+ie = (v_th - v_rest) / rm
+
+while ts[-1] < t:
+    vs = v[-1] + dv(v[-1], ie) * dt
+    if vs > v_th:
+        vs = v_reset
+
+    ts.append(ts[-1] + dt)
+    v.append(vs)
+
+plt.plot(ts, v)
+plt.xlabel("Time (ms)")
+plt.ylabel("Voltage (mV)")
+plt.title("1. Integrate & fire model simulation")
+plt.show()
+
+#Question 1
+strength = 2           # initial synapse strenth in nS ... wij?
